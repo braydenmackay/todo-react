@@ -13,7 +13,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://fierce-harbor-62939.herokuapp.com/todos/")
+    fetch("https://fierce-harbor-62939.herokuapp.com/todos")
       .then(response => response.json())
       .then(data => this.setState({ todos: data }))
   }
