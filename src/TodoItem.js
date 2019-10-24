@@ -10,14 +10,16 @@ class TodoItem extends React.Component {
   }
 
   toggleDone = () => {
-    fetch(`https://fierce-harbor-62939.herokuapp.com/todo/${this.props.id}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        title: this.props.title,
-        done: !this.state.done
-      })
-    }).then(
+    fetch(
+      `https://todo-list-f36a4.firebaseio.com/todos/${this.props.id}.json`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          done: !this.state.done
+        })
+      }
+    ).then(
       this.setState({
         done: !this.state.done
       })
@@ -32,8 +34,13 @@ class TodoItem extends React.Component {
           onChange={this.toggleDone}
           defaultChecked={this.state.done}
         />
-        <p className={this.state.done && "done"}>{this.props.title}</p>
-        <button onClick={() => this.props.delete(this.props.id)}>X</button>
+        <p className={this.state.done ? "done" : null}>{this.props.title}</p>
+        <button
+          className="delete-btn"
+          onClick={() => this.props.delete(this.props.id)}
+        >
+          X
+        </button>
       </div>
     )
   }
